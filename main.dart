@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp()); 
@@ -23,18 +21,37 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int count = 0;
+  int count = 10;
+  String texto = " ";
+  var _opcoes = ['Controle', 'Vigilancia'];
+  var _itemSelecionado;
 
   void _incrementCounter() {
     setState(() {
-      count++;
+      if (count < 20){
+        count ++;
+        texto = "";
+      }else{
+        texto = "Você chegou ao limite";
+      }
     });
   }
 
   void _decrementCounter() {
     setState(() {
-      count--;
+      if (count > 10){
+        count --;
+        texto = "";
+      }else{
+        texto = "Você chegou ao limite";
+      }
     });
+  }
+
+  void _dropDownItemSelected(String novoItem){
+      setState(() {
+      this._itemSelecionado = novoItem;
+      });
   }
 
   Widget build(BuildContext context) {
@@ -46,6 +63,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            criaDropDownButton(),
+            Text(
+              ' ',
+            ),
+            Text(
+              ' ',
+            ),
             Text(
               'Selecione o máximo de ruído permitido:',
             ),
@@ -59,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               ' ',
             ),
+            _imprime(texto),
             Text(
               ' ',
             ),
@@ -75,6 +100,51 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
   
+  Widget criaDropDownButton() {
+    return Container(
+      child: Column(
+        children: <Widget>[
+            Text(
+              'Selecione o modulo de operação:',
+            ),
+            Text(' ',),
+          DropdownButton<String>(
+            items : _opcoes.map((String dropDownStringItem) {
+              return DropdownMenuItem<String>(
+                value: dropDownStringItem,
+                child: Text(dropDownStringItem),
+              );
+            }).toList(),
+            style: Theme.of(context).textTheme.display1,
+            onChanged: (String novoItemSelecionado) {
+              _dropDownItemSelected(novoItemSelecionado);
+              setState(() {
+              this._itemSelecionado =  novoItemSelecionado;
+              });
+            },
+            value: _itemSelecionado
+          ),
+          //Text("O modulo selecionado foi \n$_itemSelecionado"),
+        ],
+      ),
+    );
+  }
+
+  Widget _imprime(String texto){
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Text(
+          '$texto',
+          style: TextStyle(
+            color: Colors.red,
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _scoreButtons(int count) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         Text(
           '$count',
-          style: Theme.of(context).textTheme.display1, //mexe no tamanho da letra
+          style: Theme.of(context).textTheme.display1, //mexe no stilo da letra
         ),
         _buttonRuido(
           text: '+',
@@ -98,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-   Widget _buttonRuido({String text, double size = 52.0, Color color, Function onPressed}) {
+   Widget _buttonRuido({String text, double size = 45.0, Color color, Function onPressed}) {
     return GestureDetector(
       onTap: onPressed,
       child: ClipOval(
