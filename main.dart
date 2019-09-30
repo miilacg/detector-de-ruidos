@@ -52,7 +52,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               ' ',
             ),
-            _showScoreButtons(count),
+            Text(
+              ' ',
+            ),
+            _scoreButtons(count),
+            Text(
+              ' ',
+            ),
             Text(
               ' ',
             ),
@@ -69,12 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
   
-  Widget _showScoreButtons(int count) {
+  Widget _scoreButtons(int count) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        _buildRoundedButton(
+        _buttonRuido(
           text: '-',
           color: Colors.black.withOpacity(0.1),
           onPressed: _decrementCounter,
@@ -83,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
           '$count',
           style: Theme.of(context).textTheme.display1, //mexe no tamanho da letra
         ),
-        _buildRoundedButton(
+        _buttonRuido(
           text: '+',
           color: Colors.blue.withOpacity(0.70),
           onPressed: _incrementCounter,
@@ -92,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-   Widget _buildRoundedButton({String text, double size = 52.0, Color color, Function onPressed}) {
+   Widget _buttonRuido({String text, double size = 52.0, Color color, Function onPressed}) {
     return GestureDetector(
       onTap: onPressed,
       child: ClipOval(
@@ -115,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        _buildButtonConexao(
+        _buttonConexao(
           text: 'Conectar',
           color: Colors.blue.withOpacity(0.90),
           onPressed: _decrementCounter,
@@ -123,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Text(
           ' ',
         ),
-        _buildButtonConexao(
+        _buttonConexao(
           text: 'Desconectar',
           color: Colors.black.withOpacity(0.1),
           onPressed: _incrementCounter,
@@ -137,7 +143,10 @@ class _MyHomePageState extends State<MyHomePage> {
         Text(
           ' ',
         ),
-        _buildButtonConexao(
+        Text(
+          ' ',
+        ),
+        _buttonConexao(
           text: 'Ver analise de dados',
           color: Colors.blue.withOpacity(0.90),
           onPressed: _incrementCounter,
@@ -146,21 +155,19 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildButtonConexao({String text, Color color, Function onPressed}) {
+  Widget _buttonConexao({String text, Color color, Function onPressed}) {
     return GestureDetector(
-      onTap: onPressed,
-      child: ClipOval(
-        child: Container(
-          color: color,
-          height: 42.0,
-          width: 250.0,
-          child: Center(
-              child: Text(
-            text,
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-          )),
-        ),
-      ),
+      onTap: onPressed,      
+      child: Container(
+        color: color,
+        height: 42.0,
+        width: 250.0,
+        child: Center(
+            child: Text(
+          text,
+          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+        )),
+      ),      
     );
   }
 }
