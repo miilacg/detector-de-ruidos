@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:detector_de_ruidos/analise_dados.dart';
+import 'package:detector_ruidos/analise_dados.dart';
+import 'package:detector_ruidos/conexao.dart';
 
 class MyHomePage extends StatefulWidget { // satateful = estado mutavel, ou seja, pode mudar durante o tempo 
   _MyHomePageState createState() => _MyHomePageState();
@@ -44,6 +45,13 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => Analise()),
+    );
+  }
+
+  void _conecta(){ // leva para pagina de conexao
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Conexao()),
     );
   }
 
@@ -167,6 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
         _buttonConexao(
           text: 'Conectar',
           color: Colors.blue.withOpacity(0.90),
+          onPressed: _conecta,
         ),
         Text(' ',),
         _buttonConexao(
